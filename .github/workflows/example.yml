@@ -1,0 +1,21 @@
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  generate_rules:
+    runs-on: ubuntu-latest
+    name: Generate Rules from SLOs
+    steps:
+      - uses: actions/checkout@v3
+      - name: Generate rule files
+        id: generate
+        uses: ArthurSens/pyrra-generate-action@v8
+        with:
+          configFiles: "examples/*.yaml"
+          outputFolder: "/tmp/output/"
+          genericRules: true
+      - name: Print rules
+        working-directory: /tmp/output/
+        run: find . -type f -exec cat {} \;

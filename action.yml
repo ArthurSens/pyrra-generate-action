@@ -1,0 +1,18 @@
+name: 'Pyrra Generate action'
+description: 'Generate Prometheus rule files from Pyrra SLO definitions'
+inputs: 
+  configFiles: 
+    description: 'Path where SLO definitions are stored. Ex: "slos/*.yaml"'
+    required: true
+    default: './*.yaml'
+  outputFolder: 
+    description: 'Path where rule files will be generated'
+    required: false
+    default: './output'
+  genericRules:
+    description: 'Enables generic recording rules generation to make it easier for tools like Grafana. Remember that generic rules arent supported for SLOs with "grouping"'
+    required: false
+    default: 'false'
+runs:
+  using: 'node16'
+  main: 'index.js'
