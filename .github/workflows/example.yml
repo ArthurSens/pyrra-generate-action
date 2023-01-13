@@ -16,6 +16,11 @@ jobs:
           configFiles: "examples/*.yaml"
           outputFolder: "/tmp/output/"
           genericRules: true
-      - name: Print rules
-        working-directory: /tmp/output/
-        run: find . -type f -exec cat {} \;
+      - name: Upload to mimir
+        uses: ArthurSens/mimirtool-rules-load-action@v1
+        with:
+          address: ${{ secrets.MIMIR_ADDRESS }}
+          id: ${{ secrets.MIMIR_TENANT_ID }}
+          key: ${{ secrets.MIMIR_API_KEY }}
+          user: ${{ secrets.MIMIR_USER }}
+          ruleFilesPath: /tmp/output/*.yaml
